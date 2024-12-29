@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled HTML Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f8ff;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007BFF;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #d6e9f9;
+        }
+
+        .form-container {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fefefe;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .spacer {
+            margin: 20px 0;
+        }
+
+        .alert {
+            text-align: center;
+            color: #d9534f;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>HTML Table Example</h1>
+    <table id="table1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>City</th>
+                <th>Email</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <div class="form-container">
+        <label for="id1">Name:</label>
+        <input id="id1" placeholder="Enter your name">
+
+        <label for="id2">Age:</label>
+        <input id="id2" placeholder="Enter your age" type="number">
+
+        <label for="id3">City:</label>
+        <input id="id3" placeholder="Enter your city">
+
+        <label for="id4">Email:</label>
+        <input id="id4" placeholder="Enter your email" type="email">
+
+        <label for="id5">Phone:</label>
+        <input id="id5" placeholder="Enter your phone number" type="tel">
+
+        <button onclick="add()">Add Data to Table</button>
+        <button onclick="removeRow()">Remove Last Row</button>
+        <button onclick="removeTable()">Remove Table</button>
+    </div>
+
+    <script>
+        function add() {
+            let inputs = [
+                document.getElementById("id1"),
+                document.getElementById("id2"),
+                document.getElementById("id3"),
+                document.getElementById("id4"),
+                document.getElementById("id5")
+            ];
+
+            let values = inputs.map(input => input.value.trim());
+
+            if (values.every(value => value)) {
+                let tableBody = document.getElementById("table1").querySelector("tbody");
+                let tr = document.createElement("tr");
+
+                for (let i = 0; i < values.length; i++) {
+                    let td = document.createElement("td");
+                    td.textContent = values[i];
+                    tr.appendChild(td);
+                }
+
+                tableBody.appendChild(tr);
+
+                inputs.forEach(input => input.value = "");
+            } else {
+                alert("Please fill in all fields.");
+            }
+        }
+
+        function removeRow() {
+            let tableBody = document.getElementById("table1").querySelector("tbody");
+            let rows = tableBody.querySelectorAll("tr");
+
+            if (rows.length > 0) {
+                tableBody.removeChild(rows[rows.length - 1]);
+            } else {
+                alert("No rows to remove.");
+            }
+        }
+
+        function removeTable() {
+            let tableBody = document.getElementById("table1").querySelector("tbody");
+            if (tableBody.querySelectorAll("tr").length > 0) {
+                tableBody.innerHTML = ""; // Clear all rows
+            } else {
+                alert("No data in the table to remove.");
+            }
+        }
+    </script>
+</body>
+</html>
